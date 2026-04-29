@@ -1,4 +1,4 @@
-require File.expand_path('test_case', File.dirname(__FILE__))
+require File.expand_path("test_case", File.dirname(__FILE__))
 
 module SpriteFactory
   class IntegrationTest < SpriteFactory::TestCase
@@ -10,60 +10,60 @@ module SpriteFactory
     end
 
     def test_generate_horizontal_regular_sprite
-      integration_test(REGULAR_PATH, :output   => output_path('regular.horizontal'),
-                                     :selector => 'img.horizontal_',
-                                     :layout   => :horizontal)
+      integration_test(REGULAR_PATH, :output => output_path("regular.horizontal"),
+                                     :selector => "img.horizontal_",
+                                     :layout => :horizontal)
     end
 
     def test_generate_vertical_regular_sprite
-      integration_test(REGULAR_PATH, :output   => output_path('regular.vertical'),
-                                     :selector => 'img.vertical_',
-                                     :layout   => :vertical)
+      integration_test(REGULAR_PATH, :output => output_path("regular.vertical"),
+                                     :selector => "img.vertical_",
+                                     :layout => :vertical)
     end
 
     def test_generate_packed_regular_sprite
-      integration_test(REGULAR_PATH, :output   => output_path('regular.packed'),
-                                     :selector => 'img.packed_',
-                                     :layout   => :packed,
-                                     :padding  => 10,
-                                     :margin   => 10)
+      integration_test(REGULAR_PATH, :output => output_path("regular.packed"),
+                                     :selector => "img.packed_",
+                                     :layout => :packed,
+                                     :padding => 10,
+                                     :margin => 10)
     end
 
     def test_generate_regular_sprite_with_padding
-      integration_test(REGULAR_PATH, :output   => output_path('regular.padded'),
-                                     :selector => 'img.padded_',
-                                     :padding  => 10)
+      integration_test(REGULAR_PATH, :output => output_path("regular.padded"),
+                                     :selector => "img.padded_",
+                                     :padding => 10)
     end
 
     def test_generate_regular_sprite_with_margin
-      integration_test(REGULAR_PATH, :output   => output_path('regular.margin'),
-                                     :selector => 'img.margin_',
-                                     :margin   => 10)
+      integration_test(REGULAR_PATH, :output => output_path("regular.margin"),
+                                     :selector => "img.margin_",
+                                     :margin => 10)
     end
 
     def test_generate_regular_sprite_with_fixed_size
-      integration_test(REGULAR_PATH, :output   => output_path('regular.fixed'),
-                                     :selector => 'img.fixed_',
-                                     :width    => 100,
-                                     :height   => 100)
+      integration_test(REGULAR_PATH, :output => output_path("regular.fixed"),
+                                     :selector => "img.fixed_",
+                                     :width => 100,
+                                     :height => 100)
     end
 
     def test_generate_regular_sprite_with_sassy_style
-      integration_test(REGULAR_PATH, :output   => output_path('regular.sassy'),
-                                     :selector => 'img.sassy_',
-                                     :style    => :sass)
+      integration_test(REGULAR_PATH, :output => output_path("regular.sassy"),
+                                     :selector => "img.sassy_",
+                                     :style => :sass)
     end
 
     def test_generate_regular_with_nocomments
-      integration_test(REGULAR_PATH, :output     => output_path('regular.nocomments'),
-                                     :selector   => 'img.nocomments_',
+      integration_test(REGULAR_PATH, :output => output_path("regular.nocomments"),
+                                     :selector => "img.nocomments_",
                                      :nocomments => true)
     end
 
     def test_generate_regular_sprite_with_exclude_array
-      integration_test(REGULAR_PATH, :output   => output_path('regular.filtered'),
-                                     :selector => 'img.filtered_',
-                                     :exclude  => ['regular1.PNG', 'regular5.PNG'])
+      integration_test(REGULAR_PATH, :output => output_path("regular.filtered"),
+                                     :selector => "img.filtered_",
+                                     :exclude => ["regular1.PNG", "regular5.PNG"])
     end
 
     #----------------------------------------------------------------------------
@@ -73,54 +73,54 @@ module SpriteFactory
     end
 
     def test_generate_horizontal_irregular_sprite
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.horizontal'),
-                                       :selector => 'img.horizontal_',
-                                       :layout   => :horizontal)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.horizontal"),
+                                       :selector => "img.horizontal_",
+                                       :layout => :horizontal)
     end
 
     def test_generate_vertical_irregular_sprite
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.vertical'),
-                                       :selector => 'img.vertical_',
-                                       :layout   => :vertical)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.vertical"),
+                                       :selector => "img.vertical_",
+                                       :layout => :vertical)
     end
 
     def test_generate_packed_irregular_sprite
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.packed'),
-                                       :selector => 'img.packed_',
-                                       :layout   => :packed,
-                                       :padding  => 10,
-                                       :margin   => 10)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.packed"),
+                                       :selector => "img.packed_",
+                                       :layout => :packed,
+                                       :padding => 10,
+                                       :margin => 10)
     end
 
     def test_generate_irregular_sprite_with_padding
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.padded'),
-                                       :selector => 'img.padded_',
-                                       :padding  => 10)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.padded"),
+                                       :selector => "img.padded_",
+                                       :padding => 10)
     end
 
     def test_generate_irregular_sprite_with_margin
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.margin'),
-                                       :selector => 'img.margin_',
-                                       :margin  => 10)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.margin"),
+                                       :selector => "img.margin_",
+                                       :margin => 10)
     end
 
     def test_generate_irregular_sprite_with_fixed_size
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.fixed'),
-                                       :selector => 'img.fixed_',
-                                       :width    => 100,
-                                       :height   => 100)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.fixed"),
+                                       :selector => "img.fixed_",
+                                       :width => 100,
+                                       :height => 100)
     end
 
     def test_generate_irregular_sprite_with_sassy_style
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.sassy'),
-                                       :selector => 'img.sassy_',
-                                       :style    => :sass)
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.sassy"),
+                                       :selector => "img.sassy_",
+                                       :style => :sass)
     end
 
     def test_generate_irregular_sprite_with_exclude_array
-      integration_test(IRREGULAR_PATH, :output   => output_path('irregular.filtered'),
-                                       :selector => 'img.filtered_',
-                                       :exclude  => ['irregular1.png', 'irregular5.png'])
+      integration_test(IRREGULAR_PATH, :output => output_path("irregular.filtered"),
+                                       :selector => "img.filtered_",
+                                       :exclude => ["irregular1.png", "irregular5.png"])
     end
 
     #----------------------------------------------------------------------------
@@ -149,47 +149,45 @@ module SpriteFactory
     #----------------------------------------------------------------------------
 
     def test_generate_sprites_with_hover_pseudo_class
-      integration_test(HOVER_PATH, :selector => 'div.hover ')
+      integration_test(HOVER_PATH, :selector => "div.hover ")
     end
 
     #----------------------------------------------------------------------------
 
     def test_generate_with_custom_glob
-      integration_test(GLOB_PATH, :glob => 'included*')
+      integration_test(GLOB_PATH, :glob => "included*")
     end
 
     #----------------------------------------------------------------------------
 
     def test_generate_with_sanitizer
-      integration_test(NAMES_PATH, :output   => output_path('sanitized'),
+      integration_test(NAMES_PATH, :output => output_path("sanitized"),
                                    :sanitizer => true)
     end
 
     #----------------------------------------------------------------------------
 
     def test_generate_with_custom_sanitizer
-      integration_test(NAMES_PATH, :output    => output_path('sanitized.custom'),
-                                   :sanitizer => lambda {|name| name.gsub(/[^\w]/, '_').downcase })
+      integration_test(NAMES_PATH, :output => output_path("sanitized.custom"),
+                                   :sanitizer => lambda { |name| name.gsub(/[^\w]/, "_").downcase })
     end
 
     #----------------------------------------------------------------------------
 
     def test_generate_sprite_with_nocss
-      input  = REGULAR_PATH
+      input = REGULAR_PATH
       output = File.basename(REGULAR_PATH)
       with_clean_output do
+        assert_equal(false, File.exist?(output_path(output + ".png")), "preconditions")
+        assert_equal(false, File.exist?(output_path(output + ".css")), "preconditions")
 
-        assert_equal(false, File.exists?(output_path(output + ".png")), "preconditions")
-        assert_equal(false, File.exists?(output_path(output + ".css")), "preconditions")
+        css = SpriteFactory.run!(REGULAR_PATH, { :nocss => true })
 
-        css = SpriteFactory.run!(REGULAR_PATH, {:nocss => true})
-
-        assert_equal(true,  File.exists?(output_path(output + ".png")), "output sprite IMAGE should exist")
-        assert_equal(false, File.exists?(output_path(output + ".css")), "output sprite CSS should NOT exist")
-        assert_equal(IO.read(reference_path(output+".css")), css, "expected return value from #run! to provide generated CSS content")
+        assert_equal(true, File.exist?(output_path(output + ".png")), "output sprite IMAGE should exist")
+        assert_equal(false, File.exist?(output_path(output + ".css")), "output sprite CSS should NOT exist")
+        assert_equal(IO.read(reference_path(output + ".css")), css, "expected return value from #run! to provide generated CSS content")
 
         assert_reference_image(output + ".png")
-
       end
     end
 

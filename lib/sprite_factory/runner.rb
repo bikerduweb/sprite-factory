@@ -1,12 +1,12 @@
-require 'pathname'
-require 'fileutils'
+require "pathname"
+require "fileutils"
 
 module SpriteFactory
   class Runner
 
     #----------------------------------------------------------------------------
 
-    PSEUDO_CLASS_ORDER = [nil, ':link', ':visited', ':focus', ':hover', ':active'] # TODO: allow caller to specify this order ?
+    PSEUDO_CLASS_ORDER = [nil, ":link", ":visited", ":focus", ":hover", ":active"] # TODO: allow caller to specify this order ?
 
     #----------------------------------------------------------------------------
 
@@ -14,44 +14,44 @@ module SpriteFactory
     attr :config
 
     def initialize(input, config = {})
-      @input  = input.to_s[-1] == "/" ? input[0...-1] : input # gracefully ignore trailing slash on input directory name
+      @input = input.to_s[-1] == "/" ? input[0...-1] : input # gracefully ignore trailing slash on input directory name
       @config = config
-      @config[:style]      ||= SpriteFactory.style    || :css
-      @config[:layout]     ||= SpriteFactory.layout   || :horizontal
-      @config[:library]    ||= SpriteFactory.library  || :rmagick
-      @config[:selector]   ||= SpriteFactory.selector || 'img.'
-      @config[:cssurl]     ||= SpriteFactory.cssurl
-      @config[:report]     ||= SpriteFactory.report
-      @config[:pngcrush]   ||= SpriteFactory.pngcrush
+      @config[:style] ||= SpriteFactory.style || :css
+      @config[:layout] ||= SpriteFactory.layout || :horizontal
+      @config[:library] ||= SpriteFactory.library || :rmagick
+      @config[:selector] ||= SpriteFactory.selector || "img."
+      @config[:cssurl] ||= SpriteFactory.cssurl
+      @config[:report] ||= SpriteFactory.report
+      @config[:pngcrush] ||= SpriteFactory.pngcrush
       @config[:nocomments] ||= SpriteFactory.nocomments
-      @config[:separator]  ||= SpriteFactory.separator || '_'
-      @config[:glob]       ||= SpriteFactory.glob      || '*'
-      @config[:sanitizer]  ||= SpriteFactory.sanitizer
-      @config[:exclude]    ||= SpriteFactory.exclude   || []
+      @config[:separator] ||= SpriteFactory.separator || "_"
+      @config[:glob] ||= SpriteFactory.glob || "*"
+      @config[:sanitizer] ||= SpriteFactory.sanitizer
+      @config[:exclude] ||= SpriteFactory.exclude || []
     end
 
     #----------------------------------------------------------------------------
 
     def run!(&block)
-      raise RuntimeError, "unknown layout #{layout_name}"     if !Layout.respond_to?(layout_name)
-      raise RuntimeError, "unknown style #{style_name}"       if !Style.respond_to?(style_name)
-      raise RuntimeError, "unknown library #{library_name}"   if !Library.respond_to?(library_name)
+      raise RuntimeError, "unknown layout #{layout_name}" if !Layout.respond_to?(layout_name)
+      raise RuntimeError, "unknown style #{style_name}" if !Style.respond_to?(style_name)
+      raise RuntimeError, "unknown library #{library_name}" if !Library.respond_to?(library_name)
 
-      raise RuntimeError, "input must be a single directory"  if input.nil?  || input.to_s.empty? || !File.directory?(input)
-      raise RuntimeError, "no image files found"              if image_files.empty?
-      raise RuntimeError, "no output file specified"          if output.to_s.empty?
-      raise RuntimeError, "no output image file specified"    if output_image_file.to_s.empty?
-      raise RuntimeError, "no output style file specified"    if output_style_file.to_s.empty?
+      raise RuntimeError, "input must be a single directory" if input.nil? || input.to_s.empty? || !File.directory?(input)
+      raise RuntimeError, "no image files found" if image_files.empty?
+      raise RuntimeError, "no output file specified" if output.to_s.empty?
+      raise RuntimeError, "no output image file specified" if output_image_file.to_s.empty?
+      raise RuntimeError, "no output style file specified" if output_style_file.to_s.empty?
 
-      raise RuntimeError, "set :width for fixed width, or :hpadding for horizontal padding, but not both." if width  && !hpadding.zero?
+      raise RuntimeError, "set :width for fixed width, or :hpadding for horizontal padding, but not both." if width && !hpadding.zero?
       raise RuntimeError, "set :height for fixed height, or :vpadding for vertical padding, but not both." if height && !vpadding.zero?
-      raise RuntimeError, "set :width for fixed width, or :hmargin for horizontal margin, but not both." if width  && !hmargin.zero?
+      raise RuntimeError, "set :width for fixed width, or :hmargin for horizontal margin, but not both." if width && !hmargin.zero?
       raise RuntimeError, "set :height for fixed height, or :vmargin for vertical margin, but not both." if height && !hmargin.zero?
 
       raise RuntimeError, "The legacy :csspath attribute is no longer supported, please use :cssurl instead (see README)" unless @config[:csspath].nil?
 
       images = load_images
-      max    = layout_images(images)
+      max = layout_images(images)
       header = summary(images, max)
 
       report(header)
@@ -59,7 +59,7 @@ module SpriteFactory
       css = []
       css << style_comment(header) unless nocomments?                       # header comment
       css << style(selector, css_url, images, &block)                       # generated styles
-      css << IO.read(custom_style_file) if File.exists?(custom_style_file)  # custom styles
+      css << IO.read(custom_style_file) if File.exist?(custom_style_file)  # custom styles
       css = css.join("\n")
 
       create_sprite(images, max[:width], max[:height])
@@ -75,7 +75,6 @@ module SpriteFactory
       else
         css    # otherwise, default is to return the generated CSS to caller in string form
       end
-
     end
 
     #----------------------------------------------------------------------------
@@ -168,8 +167,8 @@ module SpriteFactory
       if custom
         if custom.is_a?(Proc)
           custom.call(base)                 # allow custom url using a lambda
-        elsif custom.include?('$IMAGE')
-          custom.sub('$IMAGE', base)        # allow custom url with simple token replacement
+        elsif custom.include?("$IMAGE")
+          custom.sub("$IMAGE", base)        # allow custom url with simple token replacement
         else
           "url(#{File.join(custom, base)})" # allow custom url with simple prepend
         end
@@ -183,9 +182,9 @@ module SpriteFactory
     def image_files
       return [] if input.nil?
       valid_extensions = library::VALID_EXTENSIONS
-      expansions = Array(valid_extensions).map{|ext| File.join(input, "**", "#{config[:glob]}.#{ext}")}
+      expansions = Array(valid_extensions).map { |ext| File.join(input, "**", "#{config[:glob]}.#{ext}") }
       files = SpriteFactory.find_files(*expansions)
-      files = files.reject{ |file| exclude?(file) }
+      files = files.reject { |file| exclude?(file) }
       files
     end
 
@@ -204,12 +203,12 @@ module SpriteFactory
         raise RuntimeError, "image #{i[:name]} does not fit within a fixed width of #{width}" if width && (width < i[:width])
         raise RuntimeError, "image #{i[:name]} does not fit within a fixed height of #{height}" if height && (height < i[:height])
       end
-      images.sort_by {|i| [image_name_without_pseudo_class(i), image_pseudo_class_priority(i)] }
+      images.sort_by { |i| [image_name_without_pseudo_class(i), image_pseudo_class_priority(i)] }
     end
 
     def extract_image_filename(filename, input_path)
       name = Pathname.new(filename).relative_path_from(input_path).to_s.gsub(File::SEPARATOR, separator)
-      ext  = File.extname(name)
+      ext = File.extname(name)
       name = name[0...-ext.length] unless ext.empty?
       name = sanitize_image_filename(name)
       [name, ext]
@@ -219,14 +218,14 @@ module SpriteFactory
       if sanitizer.is_a?(Proc)
         sanitizer.call(name)                   # custom sanitizer
       elsif sanitizer
-        name.gsub(/[^\w-]/, '')                # (opt-in) clean all non-word characters
+        name.gsub(/[^\w-]/, "")                # (opt-in) clean all non-word characters
       else
-        name.gsub('--', ':').gsub('__', ' ')   # legacy behavior
+        name.gsub("--", ":").gsub("__", " ")   # legacy behavior
       end
     end
 
     def image_name_without_pseudo_class(image)
-      image[:name].split(':').first
+      image[:name].split(":").first
     end
 
     def image_pseudo_class(image)
@@ -259,7 +258,7 @@ module SpriteFactory
     def style(selector, url, images, &block)
       defaults = Style.generate(style_name, selector, url, images) # must call, even if custom block is given, because it stashes generated css style into image[:style] attributes
       if block_given?
-        yield images.inject({}) {|h,i| h[i[:name].to_sym] = i; h} # provide custom rule builder a hash by image name
+        yield images.inject({}) { |h, i| h[i[:name].to_sym] = i; h } # provide custom rule builder a hash by image name
       else
         defaults
       end
@@ -276,7 +275,7 @@ module SpriteFactory
     def pngcrush(image)
       if SUPPORTS_PNGCRUSH && config[:pngcrush]
         crushed = "#{image}.crushed"
-        system('pngcrush', '-q', '-rem alla', '-reduce', '-brute', image, crushed)
+        system("pngcrush", "-q", "-rem alla", "-reduce", "-brute", image, crushed)
         FileUtils.mv(crushed, image)
       end
     end
@@ -287,7 +286,7 @@ module SpriteFactory
       return <<-EOF
 
         Creating a sprite from following images:
-        \n#{images.map{|i| "        #{report_path(i[:filename])} (#{i[:width]}x#{i[:height]})" }.join("\n")}
+        \n#{images.map { |i| "        #{report_path(i[:filename])} (#{i[:width]}x#{i[:height]})" }.join("\n")}
 
         Output files:
           #{report_path(output_image_file)}
@@ -304,7 +303,7 @@ module SpriteFactory
     end
 
     def report_path(path) # always report paths relative to . to avoid machine specific information in report (to avoid DIFF issues in tests and version control)
-      @cwd ||= Pathname.new(File.expand_path('.'))
+      @cwd ||= Pathname.new(File.expand_path("."))
       path = Pathname.new(path)
       path = path.relative_path_from(@cwd) if path.absolute?
       path.to_s
